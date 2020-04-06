@@ -1,20 +1,20 @@
-import CircularProgress from '@material-ui/core/CircularProgress';
-import DataViewer from './DataViewer.js';
-import Fab from '@material-ui/core/Fab';
-import Header from './Header.js'
-import PersonAdd from '@material-ui/icons/PersonAdd';
-import React, { Component } from 'react';
-import UnknownGameType from './UnknownGameType.js';
-import WaitingRoom from './WaitingRoom.js';
-import firebase from 'firebase';
-import gameData from './gameData.js';
-import { Route, Switch } from 'react-router-dom';
-import { UserApiConfig } from './UserApi.js';
+import CircularProgress from "@material-ui/core/CircularProgress";
+import DataViewer from "./DataViewer.js";
+import Fab from "@material-ui/core/Fab";
+import Header from "./Header.js";
+import PersonAdd from "@material-ui/icons/PersonAdd";
+import React, { Component } from "react";
+import UnknownGameType from "./UnknownGameType.js";
+import WaitingRoom from "./WaitingRoom.js";
+import firebase from "firebase";
+import gameData from "./gameData.js";
+import { Route, Switch } from "react-router-dom";
+import { UserApiConfig } from "./UserApi.js";
 
 const buttonStyle = {
   width: 56,
   height: 56,
-  marginTop: 56,
+  marginTop: 56
 };
 
 export default class App extends Component {
@@ -42,14 +42,16 @@ export default class App extends Component {
       });
     }
 
-    firebase.auth().onAuthStateChanged(
-        (user) => this.setState({
-          authIsLoading: false,
-          user: user
-        }));
+    firebase.auth().onAuthStateChanged(user =>
+      this.setState({
+        authIsLoading: false,
+        user: user
+      })
+    );
 
-    UserApiConfig.startListeningForChanges().then(
-        () => this.setState({ userApiIsLoading: false }));
+    UserApiConfig.startListeningForChanges().then(() =>
+      this.setState({ userApiIsLoading: false })
+    );
   }
 
   componentWillUnmount() {
@@ -66,9 +68,7 @@ export default class App extends Component {
     if (!this.state.authIsLoading && this.state.user === null) {
       return (
         <center>
-          <Fab
-              style={buttonStyle}
-              onClick={() => this.signIn()}>
+          <Fab style={buttonStyle} onClick={() => this.signIn()}>
             <PersonAdd />
           </Fab>
         </center>
@@ -76,17 +76,16 @@ export default class App extends Component {
     } else if (this.state.authIsLoading || this.state.userApiIsLoading) {
       return (
         <center>
-          <CircularProgress
-              style={buttonStyle}
-              size={56} />
+          <CircularProgress style={buttonStyle} size={56} />
         </center>
       );
     } else {
-      var gameRoutes = Object.keys(gameData).map((type) => (
+      var gameRoutes = Object.keys(gameData).map(type => (
         <Route
-            key={type}
-            path={"/" + type + "/:id"}
-            component={gameData[type].component} />
+          key={type}
+          path={"/" + type + "/:id"}
+          component={gameData[type].component}
+        />
       ));
       return (
         <div>
@@ -95,9 +94,7 @@ export default class App extends Component {
             <Route path="/" component={WaitingRoom} exact />
             <Route path="/dataViewer" component={DataViewer} exact />
             {gameRoutes}
-            <Route
-                path={"/:type/:id"}
-                component={UnknownGameType} exact />
+            <Route path={"/:type/:id"} component={UnknownGameType} exact />
           </Switch>
         </div>
       );
