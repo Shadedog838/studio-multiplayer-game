@@ -1,12 +1,22 @@
 import GameComponent from "../../GameComponent.js";
 import UserApi from "../../UserApi.js";
 import React from "react";
+import Question from "./Question.js";
 
 export default class WheelofFortune extends GameComponent {
   constructor(props) {
     super(props);
     this.getSessionDatabaseRef().set({ text: "Hello, World!" });
-    this.state = { last_user_id: null };
+    this.state = {
+      last_user_id: null,
+      question: "What time is it",
+      answers: ["1", "2", "3", "4"]
+      // whose turn it is
+      // points
+      // timer (v2)
+      // question difficulty
+      // correct answer
+    };
   }
 
   onSessionDataChanged(data) {
@@ -18,6 +28,10 @@ export default class WheelofFortune extends GameComponent {
 
   handleButtonClick() {
     this.getSessionDatabaseRef().set({ user_id: this.getMyUserId() });
+  }
+
+  handleSubmitButton() {
+    console.log(document.getElementById("answer").value);
   }
 
   render() {
@@ -54,6 +68,9 @@ export default class WheelofFortune extends GameComponent {
         <ul>{users}</ul>
         <button onClick={() => this.handleButtonClick()}>Click me!</button>
         <p>{last_user_message}</p>
+        <Question question={this.state.question} answers={this.state.answers} />
+        <input type="text" id="answer" />
+        <button onClick={() => this.handleSubmitButton()}> Submit </button>
       </div>
     );
   }
