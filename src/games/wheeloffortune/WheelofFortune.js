@@ -62,6 +62,10 @@ export default class WheelofFortune extends GameComponent {
     console.log("handle submit button index after " + this.state.player_index);
   }
 
+  handleSubmitButton() {
+    console.log(document.getElementById("answer").value);
+  }
+
   render() {
     var id = this.getSessionId();
     var users = this.getSessionUserIds().map(user_id => (
