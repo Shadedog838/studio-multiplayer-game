@@ -52,13 +52,13 @@ export default class WheelofFortune extends GameComponent {
     if (this.state.question_index === this.state.question.length - 1) {
       // insert stuff in here next time!
     }
-
     this.getSessionDatabaseRef().update({
       user_id: this.getMyUserId(),
       response: document.getElementById("response").value,
       player_index: new_index
     });
     console.log("handle submit button index after " + this.state.player_index);
+
   }
 
   render() {
