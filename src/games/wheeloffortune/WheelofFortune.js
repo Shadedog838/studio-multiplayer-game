@@ -2,6 +2,9 @@ import GameComponent from "../../GameComponent.js";
 import UserApi from "../../UserApi.js";
 import React from "react";
 import Question from "./Question.js";
+import Wheel from "./SpinningWheel.js";
+import question_data from "./Data.js";
+import "./WheelofFortune.css";
 
 export default class WheelofFortune extends GameComponent {
   constructor(props) {
@@ -9,11 +12,7 @@ export default class WheelofFortune extends GameComponent {
     // this.getSessionDatabaseRef().set({ text: "Hello, World!" });
     this.state = {
       last_user_id: null,
-      question: [
-        "What time is it",
-        "What's your favorite color",
-        "When is your birthday"
-      ],
+      question: question_data,
       answers: ["1", "2", "3", "4"],
       response: "[No response yet]",
       user_ids: [],
@@ -53,17 +52,13 @@ export default class WheelofFortune extends GameComponent {
     if (this.state.question_index === this.state.question.length - 1) {
       // insert stuff in here next time!
     }
-
     this.getSessionDatabaseRef().update({
       user_id: this.getMyUserId(),
       response: document.getElementById("response").value,
       player_index: new_index
     });
     console.log("handle submit button index after " + this.state.player_index);
-  }
 
-  handleSubmitButton() {
-    console.log(document.getElementById("answer").value);
   }
 
   render() {
@@ -97,36 +92,42 @@ export default class WheelofFortune extends GameComponent {
     var current_player = UserApi.getName(
       this.getSessionUserIds()[player_index]
     );
+    var player_turn = "It's " + current_player + "'s turn";
 
-    if (this.getSessionUserIds()[player_index] === this.getMyUserId()) {
-      var input_text_box = <input type="text" id="response" />;
-      var submit_button = (
-        <button onClick={() => this.handleSubmitButton()}> Submit </button>
-      );
-    }
+    var show_text_box =
+      this.getSessionUserIds()[player_index] === this.getMyUserId();
+
+    // if (show_text_box) {
+    //   var input_text_box = <input type="text" id="response" />;
+    //   var submit_button = (
+    //     <button onClick={() => this.handleSubmitButton()}> Submit </button>
+    //   );
+    // }
     var last_user_with_response =
       last_user + " responded with " + this.state.response;
 
     return (
-      <div>
-        <p>Session ID: {id}</p>
+      <div className="div">
+        {/* <p>Session ID: {id}</p>
         <p>Session Title: {title}</p>
-        <p>Session Creator: {creator} </p>
-        <p>Me: {me}</p>
-        <p>Status: {status}</p>
+        <p>Session Creator: {creator} </p> */}
+        {/* <p>Me: {me}</p> */}
+        {/* <p>Status: {status}</p> */}
         <p>Session users: </p>
         <ul>{users}</ul>
-        <Question
-          question={this.state.question[0]}
-          answers={this.state.answers}
+        {/* <ul> {user_ids} </ul> */}
+        <p> {player_turn} </p>
+        <Wheel
+          items={this.state.question}
+          show_text_box={show_text_box}
+          player_index={player_index}
         />
-        <p>
+        {/* <p>
+          Enter your answer here:
           {input_text_box} {submit_button}
-        </p>
+        </p> */}
         <p> {last_user_with_response} </p>
-        <p> {this.state.response} </p>
-        <ul> {user_ids} </ul>
-        <p> {current_player} </p>
+        {/* <p> {this.state.response} </p> */}
       </div>
     );
   }
