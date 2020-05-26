@@ -135,7 +135,7 @@ export default class WheelofFortune extends GameComponent {
       "--selected-item": selectedItem
     };
     const spinning = selectedItem !== null ? "spinning" : "";
-
+    
     var id = this.getSessionId();
     console.log("display points");
     if (this.state.points != null) {
@@ -224,10 +224,9 @@ export default class WheelofFortune extends GameComponent {
         {/* <ul> {user_ids} </ul> */}
         <p> {player_turn} </p>
         <p> Question is: {selected_question} </p>
-        <p>
           Enter your answer here:
           {input_text_box} {submit_button}
-        </p>
+        </p> */}
         <p> {last_user_with_response} </p>
         <p> Is the response correct? {this.state.is_response_correct + ""} </p>
       </div>
