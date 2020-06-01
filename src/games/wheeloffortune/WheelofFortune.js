@@ -9,6 +9,7 @@ import "./WheelofFortune.css";
 export default class WheelofFortune extends GameComponent {
   constructor(props) {
     super(props);
+    // this.getSessionDatabaseRef().set({ text: "Hello, World!" });
     this.state = {
       last_user_id: null,
       question: question_data,
@@ -123,7 +124,7 @@ export default class WheelofFortune extends GameComponent {
       "--selected-item": selectedItem
     };
     const spinning = selectedItem !== null ? "spinning" : "";
-
+    
     var id = this.getSessionId();
     console.log("display points");
     if (this.state.points != null) {
