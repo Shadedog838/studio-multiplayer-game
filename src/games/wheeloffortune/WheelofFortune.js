@@ -2,6 +2,7 @@ import GameComponent from "../../GameComponent.js";
 import UserApi from "../../UserApi.js";
 import React from "react";
 import Question from "./Question.js";
+import Timer from "./Timer.js";
 import question_data from "./Data.js";
 import "./WheelofFortune.css";
 
@@ -21,11 +22,6 @@ export default class WheelofFortune extends GameComponent {
       selectedItem: null,
       selected_question: { question: "", answer: "" },
       is_response_correct: false
-      // whose turn it is
-      // points
-      // timer (v2)
-      // question difficulty
-      // correct answer
     };
     this.selectItem = this.selectItem.bind(this);
   }
@@ -110,12 +106,6 @@ export default class WheelofFortune extends GameComponent {
       updated_points = [0, 0, 0];
     }
 
-    // if (
-    //   document.getElementById("response").value ===
-    //   this.state.selected_question.answer
-    // ) {
-    // }
-
     this.getSessionDatabaseRef().update({
       user_id: this.getMyUserId(),
       response: document.getElementById("response").value,
@@ -128,7 +118,6 @@ export default class WheelofFortune extends GameComponent {
 
   render() {
     const { selectedItem } = this.state;
-    // const { items } = this.state.question;
 
     const wheelVars = {
       "--nb-item": this.state.question.length,
@@ -186,6 +175,8 @@ export default class WheelofFortune extends GameComponent {
       this.getSessionUserIds()[player_index] === this.getMyUserId();
 
     if (show_text_box) {
+      var countdown = <Timer />;
+      var enter_answer_here = "Enter your answer here: ";
       var input_text_box = <input type="text" id="response" />;
       var submit_button = (
         <button onClick={() => this.handleSubmitButton()}> Submit </button>
@@ -214,21 +205,22 @@ export default class WheelofFortune extends GameComponent {
           </div>
           <br />
         </div>
-        {/* <p>Session ID: {id}</p>
-        <p>Session Title: {title}</p>
-        <p>Session Creator: {creator} </p> */}
-        {/* <p>Me: {me}</p> */}
-        {/* <p>Status: {status}</p> */}
-        <p>Session users: </p>
-        <ul>{users}</ul>
-        {/* <ul> {user_ids} </ul> */}
-        <p> {player_turn} </p>
-        <p> Question is: {selected_question} </p>
-          Enter your answer here:
-          {input_text_box} {submit_button}
-        </p> */}
-        <p> {last_user_with_response} </p>
-        <p> Is the response correct? {this.state.is_response_correct + ""} </p>
+        <div className="game-info">
+          <p>Session users: </p>
+          <ul>{users}</ul>
+          <p> {player_turn} </p>
+          <p> Question is: {selected_question} </p>
+          <p>
+            {countdown}
+            {enter_answer_here}
+            {input_text_box} {submit_button}
+          </p>
+          <p> {last_user_with_response} </p>
+          <p>
+            {" "}
+            Is the response correct? {this.state.is_response_correct + ""}{" "}
+          </p>
+        </div>
       </div>
     );
   }
