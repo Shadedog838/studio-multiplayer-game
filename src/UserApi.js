@@ -1,8 +1,7 @@
-import firebase from 'firebase';
+import firebase from "firebase";
 
 /** Static utility functions for fetching user metadata. */
 export default class UserApi {
-
   /** Returns true if the given user UID exists in memory. */
   static hasUid(uid) {
     return users === null || uid in users;
@@ -39,7 +38,6 @@ export default class UserApi {
   }
 }
 
-
 var users = null; // In-memory cache of all user metadata.
 
 export class UserApiConfig {
@@ -51,8 +49,8 @@ export class UserApiConfig {
 
     var usersDatabaseRef = firebase.database().ref("/user");
     // Returns a Promise that resolves whenever the first load completes.
-    return new Promise((resolve) => {
-      usersDatabaseRef.on("value", (snapshot) => {
+    return new Promise(resolve => {
+      usersDatabaseRef.on("value", snapshot => {
         if (users === null) {
           resolve();
         }
@@ -62,11 +60,14 @@ export class UserApiConfig {
         } else {
           users = snapshot.val();
         }
-      })
+      });
     });
   }
 
   static stopListeningForChanges() {
-    firebase.database().ref("/user").off();
+    firebase
+      .database()
+      .ref("/user")
+      .off();
   }
 }

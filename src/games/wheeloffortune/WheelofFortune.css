@@ -17,7 +17,7 @@
 }
 .div {
   width: 100%;
-  height: 100%;
+  height: 768px;
   animation-name: example;
   animation: example 100s infinite;
 }
@@ -41,12 +41,12 @@
 .game-info {
   display: block;
   margin: auto;
-  position: relative;
-  padding: 10px;
+  padding: 30px;
 }
 
 /* Conteneur de la roue = cercle rose extérieur */
 .wheel-container {
+  float: left;
   display: block;
   position: relative;
   box-sizing: content-box;
@@ -54,6 +54,7 @@
   height: calc(var(--wheel-size) + 2 * var(--wheel-border-size));
   padding: 3px;
   margin: auto;
+  margin-left: 10px;
   background-color: var(--neutral-color);
   border: solid var(--wheel-color) 3px;
   border-radius: 50%;
@@ -146,6 +147,7 @@
   text-align: right;
   padding: 0 25px 0 50px;
   font-family: var(--wheel-font);
+  font-size: 25px;
 }
 
 /* Background de l'élément = triangle rose plus clair */
