@@ -67,7 +67,6 @@ export default class WheelofFortune extends GameComponent {
       new_index = current_player_index + 1;
     }
 
-    // var str = "Hello world, welcome to the universe.";
     var response = document.getElementById("response").value.toLowerCase();
     var is_response_correct = response.includes(
       this.state.selected_question.answer.toLowerCase()
@@ -105,6 +104,7 @@ export default class WheelofFortune extends GameComponent {
       is_response_correct: is_response_correct,
       points: updated_points
     });
+    console.log("handle submit button index after " + this.state.player_index);
   }
 
   render() {
@@ -115,7 +115,7 @@ export default class WheelofFortune extends GameComponent {
       "--selected-item": selectedItem
     };
     const spinning = selectedItem !== null ? "spinning" : "";
-
+    
     var id = this.getSessionId();
     if (this.state.points != null) {
       var points = this.state.points;

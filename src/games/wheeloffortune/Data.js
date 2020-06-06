@@ -79,9 +79,6 @@ let question_data = [
     points: 500,
     wheel_label: "JACKPOT 🤥"
   }
-  //{
-
-  //}
 ];
 
 export default question_data;
