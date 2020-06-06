@@ -1,12 +1,12 @@
-import './index.css';
-import App from './App';
+import "./index.css";
+import App from "./App";
 // TODO(jrt): Migrate to newer Material UI theme provider after migrating all
 // game components.
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import registerServiceWorker from './registerServiceWorker';
-import { BrowserRouter } from 'react-router-dom'
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import React from "react";
+import ReactDOM from "react-dom";
+import registerServiceWorker from "./registerServiceWorker";
+import { BrowserRouter } from "react-router-dom";
 
 const WrappedApp = () => (
   <BrowserRouter>
@@ -16,5 +16,5 @@ const WrappedApp = () => (
   </BrowserRouter>
 );
 
-ReactDOM.render(<WrappedApp />, document.getElementById('root'));
+ReactDOM.render(<WrappedApp />, document.getElementById("root"));
 registerServiceWorker();
